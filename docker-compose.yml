@@ -1,0 +1,11 @@
+services:
+  cwe284-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cwe284-lab
+    environment:
+      LAB_MODE: ${LAB_MODE:-vuln}
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
