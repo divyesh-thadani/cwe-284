@@ -8,7 +8,7 @@ The same app can run in 2 modes:
 
 ## Run With Docker Compose (One Command)
 
-From `/Users/divyesh/Documents/CWE-284`:
+From `/Users/{username}/Documents/CWE-284`:
 
 ```bash
 docker compose up --build -d
@@ -41,7 +41,7 @@ LAB_MODE=fixed docker compose up --build -d
 ## Local Python Setup (Optional)
 
 ```bash
-cd /Users/divyesh/Documents/CWE-284
+cd /Users/{username}/Documents/CWE-284
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
