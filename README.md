@@ -14,16 +14,10 @@ From `/Users/{username}/Documents/CWE-284`:
 docker compose up --build -d
 ```
 
-If port `5000` is already in use:
-
-```bash
-HOST_PORT=5001 docker compose up --build -d
-```
-
 Check status:
 
 ```bash
-curl -s http://127.0.0.1:${HOST_PORT:-5000}/health | jq
+curl -s http://127.0.0.1:3000/health | jq
 ```
 
 Stop:
@@ -57,17 +51,17 @@ LAB_MODE=vuln python app.py
 
 ```bash
 # Alice (regular user)
-ALICE_TOKEN=$(curl -s -X POST http://127.0.0.1:5000/login \
+ALICE_TOKEN=$(curl -s -X POST http://127.0.0.1:3000/login \
   -H 'Content-Type: application/json' \
   -d '{"username":"alice","password":"alice123"}' | jq -r '.token')
 
 # Bob (regular user)
-BOB_TOKEN=$(curl -s -X POST http://127.0.0.1:5000/login \
+BOB_TOKEN=$(curl -s -X POST http://127.0.0.1:3000/login \
   -H 'Content-Type: application/json' \
   -d '{"username":"bob","password":"bob123"}' | jq -r '.token')
 
 # Admin
-ADMIN_TOKEN=$(curl -s -X POST http://127.0.0.1:5000/login \
+ADMIN_TOKEN=$(curl -s -X POST http://127.0.0.1:3000/login \
   -H 'Content-Type: application/json' \
   -d '{"username":"admin","password":"admin123"}' | jq -r '.token')
 ```
@@ -78,7 +72,7 @@ ADMIN_TOKEN=$(curl -s -X POST http://127.0.0.1:5000/login \
 Alice reads Bob's notes:
 
 ```bash
-curl -s http://127.0.0.1:5000/api/users/2/notes \
+curl -s http://127.0.0.1:3000/api/users/2/notes \
   -H "Authorization: Bearer $ALICE_TOKEN" | jq
 ```
 
@@ -88,7 +82,7 @@ In vulnerable mode this succeeds (should be forbidden).
 Bob reads admin audit logs:
 
 ```bash
-curl -s http://127.0.0.1:5000/api/admin/audit \
+curl -s http://127.0.0.1:3000/api/admin/audit \
   -H "Authorization: Bearer $BOB_TOKEN" | jq
 ```
 
@@ -98,7 +92,7 @@ In vulnerable mode this succeeds (should be admin-only).
 Bob deletes Alice:
 
 ```bash
-curl -s -X DELETE http://127.0.0.1:5000/api/users/1 \
+curl -s -X DELETE http://127.0.0.1:3000/api/users/1 \
   -H "Authorization: Bearer $BOB_TOKEN" | jq
 ```
 
