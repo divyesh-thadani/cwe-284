@@ -68,6 +68,17 @@ def enforce_owner_or_admin(target_user_id):
 def health():
     return jsonify({"status": "ok", "mode": LAB_MODE})
 
+@app.get("/")
+def index():
+    return jsonify(
+        {
+            "name": "CWE-284 Home Lab",
+            "status": "ok",
+            "mode": LAB_MODE,
+            "hint": "Use /health, /login, /me, /api/users/<id>/notes, /api/admin/audit",
+        }
+    )
+
 
 @app.post("/reset")
 def reset_data():
