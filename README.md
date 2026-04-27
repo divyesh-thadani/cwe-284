@@ -14,10 +14,16 @@ From `/Users/divyesh/Documents/CWE-284`:
 docker compose up --build -d
 ```
 
+If port `5000` is already in use:
+
+```bash
+HOST_PORT=5001 docker compose up --build -d
+```
+
 Check status:
 
 ```bash
-curl -s http://127.0.0.1:5000/health | jq
+curl -s http://127.0.0.1:${HOST_PORT:-5000}/health | jq
 ```
 
 Stop:
